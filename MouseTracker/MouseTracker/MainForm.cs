@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using Gma.UserActivityMonitor;
 
@@ -50,7 +51,18 @@ namespace MouseTracker
 
 			bitmap = new Bitmap(rect.Width, rect.Height, PixelFormat.Format24bppRgb);
 			var graphics = Graphics.FromImage(bitmap);
-			graphics.Clear(Color.White);
+			if (File.Exists("image.jpg"))
+			{
+				var answer = MessageBox.Show("Resume last image?", "Mouse Tracker", MessageBoxButtons.YesNo);
+				if (answer == DialogResult.Yes)
+				{
+					var img = Image.FromFile("image.jpg");
+
+					graphics.DrawImage(img, 0, 0);
+				}
+				else
+					graphics.Clear(Color.White);
+			}
 
 			foreach (var screen in screens)
 			{
