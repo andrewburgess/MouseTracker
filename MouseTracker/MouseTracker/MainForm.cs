@@ -97,7 +97,7 @@ namespace MouseTracker
 				line++;
 			}
 
-			graphics.DrawString(e.KeyChar.ToString(),new Font("Courier New", 12), new SolidBrush(Color.Black), p);
+			graphics.DrawString(e.KeyChar.ToString(), new Font("Courier New", 12), new SolidBrush(Color.FromArgb(128, Color.Black)), p);
 
 			previousCharacterPoint = previousPoint;
 		}
@@ -107,15 +107,13 @@ namespace MouseTracker
 			var graphics = Graphics.FromImage(bitmap);
 			var milli = DateTime.Now.Subtract(lastClick).TotalMilliseconds;
 
-			Text = milli.ToString();
-
 			if (milli <= doubleClickTime)
 			{
-				graphics.DrawEllipse(new Pen(Color.Black, 2), e.X - 8, e.Y - 8, 16, 16);
+				graphics.DrawEllipse(new Pen(Color.FromArgb(128, Color.Black), 2), e.X - 8, e.Y - 8, 16, 16);
 			}
 			else
 			{
-				graphics.DrawEllipse(new Pen(Color.Black, 2), e.X - 4, e.Y - 4, 8, 8);
+				graphics.DrawEllipse(new Pen(Color.FromArgb(128, Color.Black), 2), e.X - 4, e.Y - 4, 8, 8);
 			}
 
 			lastClick = DateTime.Now;
@@ -124,8 +122,6 @@ namespace MouseTracker
 		private void MouseMoved(object sender, MouseEventArgs e)
 		{
 			var point = e.Location;
-
-			Text = "Mouse Tracker: (" + point.X + ", " + point.Y + ")";
 
 			if (previousPoint.X == -1)
 			{
@@ -138,13 +134,13 @@ namespace MouseTracker
 
 			if (difference.TotalSeconds >= 1)
 			{
-				var size = (float)difference.TotalSeconds / 2.0f;
+				var size = (float) difference.TotalSeconds;
 				graphics.FillEllipse(new SolidBrush(Color.FromArgb(128, Color.Black)), point.X - size / 2, point.Y - size / 2, size, size);
 			}
 			else
 			{
 				var distance = (float)Math.Sqrt(Math.Pow(point.X - previousPoint.X, 2) + Math.Pow(point.Y - previousPoint.Y, 2));
-				var alpha = (int)Math.Max(255 - (distance / 4), 0);
+				var alpha = (int)Math.Max(180 - (distance * 4), 50);
 				var size = e.Button == MouseButtons.Left ? 2 : 1;
 				graphics.DrawLine(new Pen(Color.FromArgb(alpha, Color.Black), size), previousPoint, point);
 			}
