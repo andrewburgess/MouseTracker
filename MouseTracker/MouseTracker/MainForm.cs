@@ -134,7 +134,7 @@ namespace MouseTracker
 
 			if (difference.TotalSeconds >= 1)
 			{
-				var size = (float) difference.TotalSeconds;
+				var size = (float) Math.Min(difference.TotalSeconds, 1000);
 				graphics.FillEllipse(new SolidBrush(Color.FromArgb(128, Color.Black)), point.X - size / 2, point.Y - size / 2, size, size);
 			}
 			else
