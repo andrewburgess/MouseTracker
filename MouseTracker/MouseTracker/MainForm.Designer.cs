@@ -29,14 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.updateTimer = new System.Windows.Forms.Timer(this.components);
 			this.drawTimer = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
-			// 
-			// updateTimer
-			// 
-			this.updateTimer.Interval = 50;
-			this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
 			// 
 			// drawTimer
 			// 
@@ -60,7 +54,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.Timer updateTimer;
 		private System.Windows.Forms.Timer drawTimer;
 	}
 }
